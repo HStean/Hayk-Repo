@@ -73,11 +73,16 @@ public class Grid : MonoBehaviour
         }
     }
 
-
-    void Start()
+    public void ClearGrid()
     {
-        SetGrid(Difficulty.Hard);
-        Debug.Log(string.Join(", ", id));
+        foreach (Transform child in gridLayoutGroup.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        GameObject.FindObjectOfType<GameScript>().score = 0;
+        GameObject.FindObjectOfType<GameScript>().currentCount = 0;
+        GameObject.FindObjectOfType<GameScript>().scoreUI.gameObject.SetActive(false);
+        id.Clear();
     }
 
 }

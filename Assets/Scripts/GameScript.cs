@@ -1,24 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameScript : MonoBehaviour
 {
     public List<Card> selectedCards = new List<Card>();
 
-    private Grid gridManager;
+    private Grid grid;
+    public GameObject menuPanel;
 
     public bool canClick = true;
     public bool winCondition = false;
 
-    public int winCount = 0;
     public int currentCount = 0;
+
+    public int score = 0;
+    public TMP_Text scoreUI;
 
     void Start()
     {
-        gridManager = GameObject.FindObjectOfType<Grid>();
-        winCount = gridManager.rows * gridManager.columns / 2;
-        Debug.Log(winCount);
+        grid = GameObject.FindObjectOfType<Grid>();
     }
 
     public void CardSelected(Card card)
@@ -39,15 +41,21 @@ public class GameScript : MonoBehaviour
 
         if (card1.Card_id == card2.Card_id)
         {
+            score += 1;
+            scoreUI.text = "Score: " + score;
+            scoreUI.gameObject.SetActive(true);
             card1.isMatched = true;
             card2.isMatched = true;
             currentCount += 1;
             selectedCards.Clear();
             canClick = true;
-            if (currentCount == winCount)
+            AudioManager.instance.Match(); 
+            if (currentCount == grid.id.Count/2)
             {
                 winCondition = true;
-                Debug.Log("Win");
+                Debug.Log("win");
+                AudioManager.instance.Win();
+                StartCoroutine(ShowMenu(1f));
             }
         }
         else
@@ -55,17 +63,25 @@ public class GameScript : MonoBehaviour
             selectedCards.Clear();
             canClick = true;
             StartCoroutine(FlipBackRoutine(card1, card2));
+            AudioManager.instance.MissMatch(); 
         }
         
     }
 
     IEnumerator FlipBackRoutine(Card card1, Card card2)
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.41f);
         card1.Flip();
         card2.Flip();
     }
 
+    IEnumerator ShowMenu(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        grid.ClearGrid();
+        menuPanel.SetActive(true);
+
+    }
 
     
 }
