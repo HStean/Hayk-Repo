@@ -13,11 +13,16 @@ public class Card : MonoBehaviour
     private Image cardImage;
     public Sprite backSprite;
     public Sprite frontSprite;
+
+    private GameScript gameManager;
     
     void Awake()
     {
         isFlipped = false;
+
         cardImage = GetComponent<Image>();
+        gameManager = GameObject.FindObjectOfType<GameScript>();
+
         backSprite = cardImage.sprite;
     }
 
@@ -39,10 +44,12 @@ public class Card : MonoBehaviour
 
     public void OnButtonPress()
     {
-        if (!isFlipped && !isMatched)
+        
+
+        if (!isFlipped && !isMatched && gameManager.canClick)
         {
             Flip();
-            GameObject.FindObjectOfType<GameScript>().CardSelected(this);
+            gameManager.CardSelected(this);
         }
     }
 

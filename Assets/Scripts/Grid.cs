@@ -9,8 +9,8 @@ public class Grid : MonoBehaviour
     public GameObject backPrefab;
     public List<Sprite> frontSprites;
 
-    private int rows;
-    private int columns;
+    public int rows;
+    public int columns;
 
     public List<int> id;
 
@@ -70,7 +70,6 @@ public class Grid : MonoBehaviour
             Card cardScript = newCard.GetComponent<Card>();
             cardScript.Card_id = id[i]; 
             cardScript.frontSprite = frontSprites[id[i] - 1];
-            
         }
     }
 
@@ -79,10 +78,6 @@ public class Grid : MonoBehaviour
     {
         SetGrid(Difficulty.Hard);
         Debug.Log(string.Join(", ", id));
-
-        
-
-
     }
 
 }

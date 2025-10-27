@@ -121,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6398102186150873361}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -4047707436200574589}
+        m_TargetAssemblyTypeName: Card, Assembly-CSharp
+        m_MethodName: OnButtonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-4047707436200574589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,3 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73feec97dad18914a9a99afcbd3fbf7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Card_id: 0
+  isFlipped: 0
+  isMatched: 0
+  backSprite: {fileID: 0}
+  frontSprite: {fileID: 0}
